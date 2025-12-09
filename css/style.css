@@ -1,0 +1,1249 @@
+/* ====================================
+   전역 스타일
+   ==================================== */
+
+/* IBM Plex Sans KR 폰트 로드 (Google Fonts 등에서 사용 가능한 경우) */
+/* 만약 웹폰트 파일을 직접 호스팅해야 한다면, 아래 @font-face를 사용하세요. */
+/* @font-face {
+  font-family: 'IBM Plex Sans KR';
+  src: url('경로/IBM_Plex_Sans_KR-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IBM Plex Sans KR';
+  src: url('경로/IBM_Plex_Sans_KR-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+... 필요한 다른 굵기들도 추가 */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* 컬러 팔레트 - 건강/웰빙 테마 */
+  --primary-color: #7fb8a1;
+  --secondary-color: #c4ded4;
+  --accent-color: #f0a07c;
+  --text-primary: #2c3e50;
+  --text-secondary: #5d6d7e;
+  --border-color: rgba(255, 255, 255, 0.3);
+  --success-color: #7fb8a1;
+  --shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  --shadow-hover: 0 12px 40px rgba(31, 38, 135, 0.25);
+}
+
+body {
+  /* 기존 "Noto Sans KR" 대신 "IBM Plex Sans KR" 적용 */
+  font-family: "IBM Plex Sans KR", sans-serif;
+  /* 높은 채도의 생생한 그라데이션 배경 */
+  background: linear-gradient(
+    135deg,
+    #ffe66d 0%,
+    #a8e6cf 25%,
+    #ff8b94 50%,
+    #ffd97d 75%,
+    #a8dcd1 100%
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  color: var(--text-primary);
+  line-height: 1.6;
+
+  min-height: 100vh;
+  /* 부드러운 배경 전환 */
+  transition: background 0.8s ease;
+  position: relative;
+}
+
+/* 배경 블러 레이어 */
+.bg-blur-layer {
+  position: fixed;
+  top: -20px;
+  left: -20px;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  background: inherit;
+  background-size: inherit;
+  background-position: inherit;
+  background-repeat: inherit;
+  background-attachment: inherit;
+  z-index: 5;
+  transition: background 0.8s ease, filter 0.3s ease;
+}
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ====================================
+   스플래시 화면 (1단계)
+   ==================================== */
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  /* 배경 이미지 */
+  background: url("../images/splash-background.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+/* 배경 이미지 위에 반투명 오버레이 (선택사항) */
+.splash-screen::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(127, 184, 161, 0.3);
+  z-index: 1;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.splash-screen.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.splash-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.splash-content {
+  text-align: center;
+  color: white;
+  animation: fadeInUp 1s ease;
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.splash-question {
+  font-size: 2rem;
+  font-weight: 300;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+}
+
+.splash-logo {
+  margin-top: 20px;
+}
+
+.splash-title {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: 3px;
+}
+
+.splash-subtitle {
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ====================================
+   홈 화면 - 증상 선택 (2단계)
+   ==================================== */
+.home-screen,
+.products-screen,
+.detail-screen {
+  display: none;
+  min-height: 100vh;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  overflow: hidden;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.home-screen.active,
+.products-screen.active,
+.detail-screen.active {
+  display: block;
+}
+
+/* 홈화면 */
+.home-screen {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 떠다니는 배경 이미지들 */
+.floating-bg-image {
+  position: absolute;
+  right: -100px;
+  width: 120%;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.floating-bg-image2 {
+  position: absolute;
+  top: 100%;
+  right: -100px;
+  width: 120%;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* 화면 가로비율에 따라 floating-bg-image2 위치 조정 */
+@media (max-aspect-ratio: 16/9) {
+  .floating-bg-image2 {
+    top: 70%;
+  }
+}
+
+@media (max-aspect-ratio: 4/3) {
+  .floating-bg-image2 {
+    top: 60%;
+  }
+}
+
+@media (max-aspect-ratio: 1/1) {
+  .floating-bg-image2 {
+    top: 60%;
+  }
+}
+
+@media (max-aspect-ratio: 3/4) {
+  .floating-bg-image2 {
+    top: 60%;
+  }
+}
+
+@media (max-aspect-ratio: 9/16) {
+  .floating-bg-image2 {
+    top: 60%;
+  }
+}
+
+.floating-bg-image-1 {
+  z-index: 1;
+  animation: floatBg1 15s ease-in-out infinite;
+}
+
+.floating-bg-image-2 {
+  z-index: 2;
+  animation: floatBg2 18s ease-in-out infinite;
+  animation-delay: -5s;
+}
+
+.floating-bg-image-3 {
+  z-index: 3;
+  animation: floatBg3 20s ease-in-out infinite;
+  animation-delay: -10s;
+}
+
+/* Y축으로만 떠다니는 애니메이션 */
+@keyframes floatBg1 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+}
+
+@keyframes floatBg2 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-70px);
+  }
+}
+
+@keyframes floatBg3 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-105px);
+  }
+}
+
+/* 컨테이너가 배경 이미지 위에 표시되도록 */
+.home-screen .container {
+  position: relative;
+  z-index: 10;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.header {
+  margin-bottom: 40px;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.question-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 20px;
+}
+.symptoms-grid2 {
+  position: relative;
+  border-radius: 3%;
+  filter: blur(10px);
+  color: #2c3e50;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+  /* 강한 글라스모피즘 배경 */
+}
+.symptoms-grid {
+  border-radius: 3%;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+
+  /* 강한 글라스모피즘 배경 */
+}
+
+.symptom-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.symptom-card:hover {
+  transform: translateY(-5px);
+}
+
+.symptom-card:hover .symptom-image-placeholder {
+  transform: scale(1.05);
+  box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
+}
+
+.symptom-card.selected .symptom-image-placeholder {
+  border: 4px solid rgba(255, 255, 255, 1);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+}
+
+.symptom-card.selected .check-indicator {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.symptom-image-placeholder {
+  width: 200px;
+  height: 200px;
+  border-radius: 20%;
+
+  overflow: visible;
+  position: relative;
+  transition: all 0.3s ease;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.symptom-image-placeholder::after {
+  content: "";
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.symptom-image {
+  width: 70%;
+  height: 70%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.symptom-image2 {
+  color: #000000;
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.symptom-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  margin: 0;
+}
+
+.check-indicator {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(127, 184, 161, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(127, 184, 161, 0.6);
+  border: 3px solid #ffffff;
+  z-index: 10;
+}
+
+.checkmark {
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.confirm-btn {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 18px 40px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: white;
+  /* 글라스모피즘 버튼 */
+  background: rgba(127, 184, 161, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(127, 184, 161, 0.3);
+}
+
+.confirm-btn:hover {
+  transform: translateY(-3px);
+  background: rgba(127, 184, 161, 0.85);
+  box-shadow: 0 12px 40px rgba(127, 184, 161, 0.4);
+}
+
+.confirm-btn:active {
+  transform: translateY(0);
+}
+
+/* ====================================
+   추천 영양제 목록 페이지 (3단계) - 슬라이더
+   ==================================== */
+.back-btn {
+  /* 글라스모피즘 버튼 */
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 12px 24px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.back-btn:hover {
+  background: rgba(127, 184, 161, 0.3);
+  color: var(--primary-color);
+  transform: translateX(-3px);
+}
+
+.slider-indicator {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 10px;
+
+  font-weight: 500;
+}
+
+/* 슬라이더 컨테이너 - 3D 회전 캐러셀 */
+.slider-container {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: 700px;
+}
+
+.slider-wrapper {
+  width: 100%;
+  max-width: 500px;
+  height: 450px;
+  position: relative;
+  perspective: 1500px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.slider-track {
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0 auto;
+}
+
+.product-card {
+  cursor: pointer;
+  transition: all 0.4s ease;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  overflow: visible;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.product-card.active {
+  pointer-events: auto;
+  z-index: 50;
+  opacity: 1;
+  visibility: visible;
+}
+
+.product-image-placeholder {
+  width: 400px;
+  height: 500px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  flex-shrink: 0;
+  overflow: visible;
+  transition: all 0.3s ease;
+  border: none;
+  background: transparent;
+  position: relative;
+  animation: floatProduct 4s ease-in-out infinite;
+}
+
+/* 떠다니는 애니메이션 */
+@keyframes floatProduct {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* 외부 광선 효과 */
+.product-image-placeholder::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(188, 235, 255, 0.2) 30%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  animation: pulseGlow 3s ease-in-out infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: transparent;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3))
+    drop-shadow(0 0 40px rgba(255, 255, 255, 0.5));
+}
+.product-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  padding: 0 20px;
+  word-break: keep-all;
+}
+
+.product-short-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  padding: 0 30px;
+  word-break: keep-all;
+}
+
+/* 슬라이더 화살표 */
+.slider-arrow {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  position: absolute;
+  z-index: 100;
+}
+
+.slider-arrow span {
+  font-size: 3rem;
+  color: #ffffff;
+  line-height: 1;
+  font-weight: 300;
+}
+.slider-arrow span:hover {
+  font-size: 3rem;
+  color: rgba(0, 255, 153, 0.6);
+  line-height: 1;
+  font-weight: 300;
+}
+
+.slider-arrow:hover {
+  background: rgba(127, 184, 161, 0.5);
+  transform: scale(1.15);
+  box-shadow: 0 8px 30px rgba(127, 184, 161, 0.4);
+  border: 2px solid rgba(0, 255, 153, 0.6);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.slider-arrow:active {
+  transform: scale(1.05);
+}
+
+.slider-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.slider-arrow:disabled:hover {
+  transform: scale(1);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* 화살표 좌우 배치 */
+.slider-arrow-left {
+  left: -10%;
+}
+
+.slider-arrow-right {
+  right: -10%;
+}
+
+/* 제품 정보 텍스트 */
+.product-info-text {
+  z-index: 100;
+  text-align: center;
+  max-width: 500px;
+
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+  border-radius: 10px;
+  background: rgba(69, 69, 69, 0.5);
+}
+
+.product-info-text .product-name {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 10px 30px rgba(10, 10, 10, 0.8);
+  margin-bottom: 15px;
+  word-break: keep-all;
+}
+
+.product-info-text .product-short-desc {
+  font-size: 1rem;
+  color: #ffffff;
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+/* 슬라이더 점 네비게이션 */
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.slider-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(127, 184, 161, 0.3);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.slider-dot:hover {
+  background: rgba(127, 184, 161, 0.5);
+  transform: scale(1.2);
+}
+
+.slider-dot.active {
+  background: rgba(127, 184, 161, 0.8);
+  width: 32px;
+  border-radius: 6px;
+}
+
+/* ====================================
+   영양제 상세 페이지 (4단계)
+   ==================================== */
+/* ====================================
+   ìƒì„¸ íŽ˜ì´ì§€ ì´ë¯¸ì§€ ìŠ¤íƒ€ì¼
+   ==================================== */
+/* ⭐ detail-content 스타일 위쪽에 이 코드를 추가하세요 */
+.detail-screen .container {
+  position: relative;
+  /* 이미지를 위한 상단 여백 확보 */
+  padding-top: 180px;
+}
+.detail-image-container {
+  position: absolute;
+  /* ⭐ 마스크 컨텐츠 위쪽에 배치 */
+  top: 330px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: floatDetailImage 4s ease-in-out infinite;
+}
+
+/* 상세 이미지 떠다니는 애니메이션 */
+@keyframes floatDetailImage {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-15px);
+  }
+}
+.detail-product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.4))
+    drop-shadow(0 0 40px rgba(255, 255, 255, 0.6));
+}
+
+/* ⭐ 반응형 - 모바일 */
+@media (max-width: 480px) {
+  .detail-screen .container {
+    padding-top: 140px;
+  }
+
+  .detail-image-container {
+    width: 200px;
+    height: 200px;
+    top: 330px;
+  }
+
+  .detail-content {
+    max-width: 90%;
+    border-radius: 200px;
+    padding: 280px 40px 50px 40px;
+    -webkit-mask-image: radial-gradient(
+      circle 100px at 50% 140px,
+      transparent 0,
+      transparent 100px,
+      black 100px
+    );
+    mask-image: radial-gradient(
+      circle 100px at 50% 140px,
+      transparent 0,
+      transparent 100px,
+      black 100px
+    );
+  }
+}
+.detail-content {
+  overflow: hidden;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  /* ê¸€ë¼ìŠ¤ëª¨í"¼ì¦˜ íš¨ê³¼ */
+  background: rgba(87, 87, 87, 0.5);
+  backdrop-filter: blur(500px) saturate(1.4);
+  border-radius: 250px;
+  /* ⭐ padding-top 증가 (이미지 공간 확보) */
+  padding: 330px 50px 60px 50px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  overflow: visible;
+  /* ì›í˜• êµ¬ë© ëš«ê¸° */
+  -webkit-mask-image: radial-gradient(
+    circle 125px at 50% 165px,
+    transparent 0,
+    transparent 125px,
+    black 125px
+  );
+  mask-image: radial-gradient(
+    circle 125px at 50% 165px,
+    transparent 0,
+    transparent 125px,
+    black 125px
+  );
+}
+
+.detail-image-placeholder {
+  display: none;
+}
+
+.detail-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 25px;
+  text-align: center;
+  word-break: keep-all;
+}
+
+.detail-description {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  line-height: 1.7;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #ffffff;
+  word-break: keep-all;
+}
+
+.detail-section {
+  color: #ffffff;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.detail-section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid rgba(127, 184, 161, 0.3);
+  text-align: center;
+}
+
+.detail-section-content {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  text-align: center;
+  word-break: keep-all;
+  color: #ffffff;
+}
+
+/* ====================================
+   반응형 디자인 - 태블릿
+   ==================================== */
+@media (max-width: 650px) {
+  .slider-indicator {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-top: 10px;
+    margin-bottom: 4%;
+    font-weight: 500;
+  }
+  .slider-arrow-left {
+    left: -7%;
+  }
+
+  .slider-arrow-right {
+    right: -7%;
+  }
+  .splash-question {
+    font-size: 1.5rem;
+  }
+
+  .splash-title {
+    font-size: 3rem;
+  }
+
+  .splash-subtitle {
+    font-size: 1.4rem;
+  }
+
+  .question-title {
+    font-size: 1.5rem;
+    padding: 0 10px;
+  }
+
+  .symptoms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+
+    /* ê°•í•œ ê¸€ë¼ìŠ¤ëª¨í"¼ì¦˜ ë°°ê²½ */
+  }
+
+  .symptom-card {
+    padding: 20px;
+    margin-top: 0px;
+  }
+
+  .symptom-image-placeholder {
+    height: 180px;
+    width: 180px;
+  }
+
+  /* 슬라이더 - 태블릿 */
+  .slider-container {
+    gap: 15px;
+    height: 550px;
+  }
+
+  .slider-wrapper {
+    max-width: 450px;
+    height: 500px;
+  }
+
+  .slider-arrow {
+    width: 50px;
+    height: 50px;
+  }
+
+  .slider-arrow span {
+    font-size: 2.5rem;
+  }
+
+  .product-image-placeholder {
+    width: 320px;
+    height: 400px;
+  }
+
+  .product-name {
+    font-size: 1.7rem;
+  }
+
+  .product-short-desc {
+    font-size: 1rem;
+  }
+
+  .detail-content {
+    max-width: 450px;
+    border-radius: 220px;
+    padding: 300px 45px 55px 45px;
+    -webkit-mask-image: radial-gradient(
+      circle 110px at 50% 150px,
+      transparent 0,
+      transparent 110px,
+      black 110px
+    );
+    mask-image: radial-gradient(
+      circle 110px at 50% 150px,
+      transparent 0,
+      transparent 110px,
+      black 110px
+    );
+  }
+
+  .detail-image-placeholder {
+    display: none;
+  }
+
+  .detail-title {
+    font-size: 1.8rem;
+    margin-bottom: 22px;
+  }
+
+  .detail-description {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin-bottom: 22px;
+  }
+
+  .detail-section {
+    margin-bottom: 22px;
+  }
+
+  .detail-section-title {
+    font-size: 1.05rem;
+    margin-bottom: 11px;
+  }
+
+  .detail-section-content {
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+}
+
+/* ====================================
+   반응형 디자인 - 모바일
+   ==================================== */
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+
+  .splash-question {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+
+  .splash-title {
+    font-size: 2.5rem;
+  }
+
+  .splash-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .question-title {
+    font-size: 1.3rem;
+    padding: 0 10px;
+  }
+
+  .page-title {
+    font-size: 1.6rem;
+  }
+
+  .symptoms-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .symptom-image-placeholder {
+    width: 120px;
+    height: 120px;
+  }
+
+  .symptom-name {
+    font-size: 0.95rem;
+  }
+
+  .confirm-btn {
+    font-size: 1.1rem;
+    padding: 15px 30px;
+  }
+
+  /* 슬라이더 - 모바일 */
+  .slider-container {
+    gap: 10px;
+    margin: 40px 0;
+    height: 500px;
+  }
+
+  .slider-wrapper {
+    max-width: 100%;
+    max-width: 320px;
+    height: 450px;
+  }
+
+  .slider-arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .slider-arrow span {
+    font-size: 2rem;
+  }
+
+  .product-image-placeholder {
+    width: 280px;
+    height: 350px;
+  }
+
+  .product-name {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+  }
+
+  .product-short-desc {
+    font-size: 0.9rem;
+  }
+
+  .slider-dots {
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .slider-dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .slider-dot.active {
+    width: 24px;
+  }
+
+  .detail-content {
+    max-width: 90%;
+    border-radius: 200px;
+    padding: 280px 40px 50px 40px;
+    -webkit-mask-image: radial-gradient(
+      circle 100px at 50% 140px,
+      transparent 0,
+      transparent 100px,
+      black 100px
+    );
+    mask-image: radial-gradient(
+      circle 100px at 50% 140px,
+      transparent 0,
+      transparent 100px,
+      black 100px
+    );
+  }
+
+  .detail-image-placeholder {
+    display: none;
+  }
+
+  .detail-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .detail-description {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .detail-section {
+    margin-bottom: 20px;
+  }
+
+  .detail-section-title {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .detail-section-content {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+}

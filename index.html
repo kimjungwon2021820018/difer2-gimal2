@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nutrition - 영양제 추천</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+  </head>
+
+  <body>
+    <!-- 스플래시 화면 (1단계) -->
+    <div id="splash-screen" class="splash-screen active">
+      <div class="splash-content">
+        <h1 class="splash-question">어려우신가요?</h1>
+        <div class="splash-logo">
+          <h2 class="splash-title">Nutrition</h2>
+          <p class="splash-subtitle">"영양제"</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 홈 화면 - 증상 선택 페이지 (2단계) -->
+    <div id="home-screen" class="home-screen">
+      <!-- 떠다니는 배경 이미지들 (컨테이너 뒤) -->
+      <img
+        src="images/home-bg-layer-1.png"
+        alt=""
+        class="floating-bg-image floating-bg-image-1"
+      />
+      <img
+        src="images/home-bg-layer-2.png"
+        alt=""
+        class="floating-bg-image floating-bg-image-2"
+      />
+      <img
+        src="images/home-bg-layer-3.png"
+        alt=""
+        class="floating-bg-image floating-bg-image-3"
+      />
+
+      <img
+        src="images/home-bg-layer-1.png"
+        alt=""
+        class="floating-bg-image2 floating-bg-image-1"
+      />
+      <img
+        src="images/home-bg-layer-2.png"
+        alt=""
+        class="floating-bg-image2 floating-bg-image-2"
+      />
+      <img
+        src="images/home-bg-layer-3.png"
+        alt=""
+        class="floating-bg-image2 floating-bg-image-3"
+      />
+
+      <div class="container">
+        <div class="header">
+          <h2 class="question-title">
+            Q. 최근 개선하고자 하는<br />건강문제는 무엇인가요?
+          </h2>
+        </div>
+
+        <div class="symptoms-grid">
+          <!-- 피부트러블 -->
+          <div class="symptom-card" data-symptom="피부트러블">
+            <div class="symptom-image-placeholder">
+              <img
+                src="images/symptom-skin.png"
+                alt="피부트러블"
+                class="symptom-image"
+              />
+              <div class="check-indicator">
+                <span class="checkmark">✓</span>
+              </div>
+            </div>
+            <h3 class="symptom-name">피부트러블</h3>
+          </div>
+
+          <!-- 피로 -->
+          <div class="symptom-card" data-symptom="피로">
+            <div class="symptom-image-placeholder">
+              <img
+                src="images/symptom-fatigue.png"
+                alt="피로"
+                class="symptom-image"
+              />
+              <div class="check-indicator">
+                <span class="checkmark">✓</span>
+              </div>
+            </div>
+            <h3 class="symptom-name">피로</h3>
+          </div>
+
+          <!-- 소화불량 -->
+          <div class="symptom-card" data-symptom="소화불량">
+            <div class="symptom-image-placeholder">
+              <img
+                src="images/symptom-digestion.png"
+                alt="소화불량"
+                class="symptom-image"
+              />
+              <div class="check-indicator">
+                <span class="checkmark">✓</span>
+              </div>
+            </div>
+            <h3 class="symptom-name">소화불량</h3>
+          </div>
+
+          <!-- 스트레스 -->
+          <div class="symptom-card" data-symptom="스트레스">
+            <div class="symptom-image-placeholder">
+              <img
+                src="images/symptom-stress.png"
+                alt="스트레스"
+                class="symptom-image"
+              />
+              <div class="check-indicator">
+                <span class="checkmark">✓</span>
+              </div>
+            </div>
+            <h3 class="symptom-name">스트레스</h3>
+          </div>
+
+          <!-- 면역저하 -->
+          <div class="symptom-card" data-symptom="면역저하">
+            <div class="symptom-image-placeholder">
+              <img
+                src="images/symptom-immunity.png"
+                alt="면역저하"
+                class="symptom-image"
+              />
+              <div class="check-indicator">
+                <span class="checkmark">✓</span>
+              </div>
+            </div>
+            <h3 class="symptom-name">면역저하</h3>
+          </div>
+
+          <!-- 여성/남성 건강 -->
+          <div class="symptom-card" data-symptom="여성/남성 건강">
+            <div class="symptom-image-placeholder">
+              <img
+                src="images/symptom-health.png"
+                alt="여성/남성 건강"
+                class="symptom-image"
+              />
+              <div class="check-indicator">
+                <span class="checkmark">✓</span>
+              </div>
+            </div>
+            <h3 class="symptom-name">여성/남성 건강</h3>
+          </div>
+        </div>
+
+        <button id="confirm-btn" class="confirm-btn">확인하러가기</button>
+      </div>
+    </div>
+
+    <!-- 추천 영양제 목록 페이지 (3단계) - 슬라이드 형식 -->
+    <div id="products-screen" class="products-screen">
+      <div class="container">
+        <div class="header">
+          <button class="back-btn" id="back-to-home">← 뒤로가기</button>
+          <h2 class="page-title">추천 영양제</h2>
+          <p class="slider-indicator" id="slider-indicator">1 / 1</p>
+        </div>
+
+        <!-- 슬라이드 컨테이너 -->
+        <div class="slider-container">
+          <div class="slider-wrapper" id="slider-wrapper">
+            <button class="slider-arrow slider-arrow-left" id="slider-prev">
+              <span>‹</span>
+            </button>
+
+            <div class="slider-track" id="slider-track">
+              <!-- JavaScript로 동적 생성 -->
+            </div>
+
+            <button class="slider-arrow slider-arrow-right" id="slider-next">
+              <span>›</span>
+            </button>
+          </div>
+
+          <!-- 제품 정보 텍스트 -->
+          <div class="product-info-text" id="product-info-text">
+            <h3 class="product-name"></h3>
+            <p class="product-short-desc"></p>
+          </div>
+        </div>
+
+        <!-- 슬라이드 점 네비게이션 -->
+        <div class="slider-dots" id="slider-dots"></div>
+      </div>
+    </div>
+
+    <!-- 영양제 상세 페이지 (4단계) -->
+    <div id="detail-screen" class="detail-screen">
+      <div class="container">
+        <div class="header">
+          <button class="back-btn" id="back-to-products">← 뒤로가기</button>
+        </div>
+
+        <div class="detail-content" id="detail-content">
+          <!-- JavaScript로 동적 생성 -->
+        </div>
+      </div>
+    </div>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
