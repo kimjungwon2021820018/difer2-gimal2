@@ -103,7 +103,7 @@ body {
   width: 100%;
   height: 100vh;
   /* 배경 이미지 */
-  background: url("/splash-background.png");
+  background: url("splash-background.png");
 
   background-size: cover;
   background-position: center;
