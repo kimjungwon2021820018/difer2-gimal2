@@ -41,14 +41,12 @@ body {
   /* 기존 "Noto Sans KR" 대신 "IBM Plex Sans KR" 적용 */
   font-family: "IBM Plex Sans KR", sans-serif;
   /* 높은 채도의 생생한 그라데이션 배경 */
-  background: linear-gradient(
-    135deg,
-    #ffe66d 0%,
-    #a8e6cf 25%,
-    #ff8b94 50%,
-    #ffd97d 75%,
-    #a8dcd1 100%
-  );
+  background: linear-gradient(135deg,
+      #ffe66d 0%,
+      #a8e6cf 25%,
+      #ff8b94 50%,
+      #ffd97d 75%,
+      #a8dcd1 100%);
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
   color: var(--text-primary);
@@ -75,13 +73,16 @@ body {
   z-index: 5;
   transition: background 0.8s ease, filter 0.3s ease;
 }
+
 @keyframes gradientShift {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -133,9 +134,11 @@ body {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -189,6 +192,7 @@ body {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -289,30 +293,36 @@ body {
 
 /* Y축으로만 떠다니는 애니메이션 */
 @keyframes floatBg1 {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-30px);
   }
 }
 
 @keyframes floatBg2 {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-70px);
   }
 }
 
 @keyframes floatBg3 {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-105px);
   }
@@ -328,6 +338,7 @@ body {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -354,6 +365,7 @@ body {
   color: #ffffff;
   margin-top: 20px;
 }
+
 .symptoms-grid2 {
   position: relative;
   border-radius: 3%;
@@ -364,6 +376,7 @@ body {
 
   /* 강한 글라스모피즘 배경 */
 }
+
 .symptoms-grid {
   border-radius: 3%;
   border: 3px solid rgba(255, 255, 255, 0.5);
@@ -438,6 +451,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 .symptom-image2 {
   color: #000000;
   width: 50%;
@@ -623,10 +637,12 @@ body {
 
 /* 떠다니는 애니메이션 */
 @keyframes floatProduct {
+
   0%,
   100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-20px);
   }
@@ -641,13 +657,11 @@ body {
   width: 120%;
   height: 120%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.4) 0%,
-    rgba(188, 235, 255, 0.2) 30%,
-    rgba(255, 255, 255, 0.3) 50%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(188, 235, 255, 0.2) 30%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 70%);
   border-radius: 50%;
   animation: pulseGlow 3s ease-in-out infinite;
   z-index: -1;
@@ -655,11 +669,13 @@ body {
 }
 
 @keyframes pulseGlow {
+
   0%,
   100% {
     opacity: 0.6;
     transform: translate(-50%, -50%) scale(1);
   }
+
   50% {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1.1);
@@ -671,9 +687,9 @@ body {
   height: 100%;
   object-fit: contain;
   background: transparent;
-  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3))
-    drop-shadow(0 0 40px rgba(255, 255, 255, 0.5));
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.5));
 }
+
 .product-name {
   font-size: 1.5rem;
   font-weight: 700;
@@ -716,6 +732,7 @@ body {
   line-height: 1;
   font-weight: 300;
 }
+
 .slider-arrow span:hover {
   font-size: 3rem;
   color: rgba(0, 255, 153, 0.6);
@@ -825,6 +842,7 @@ body {
   /* 이미지를 위한 상단 여백 확보 */
   padding-top: 180px;
 }
+
 .detail-image-container {
   position: absolute;
   /* ⭐ 마스크 컨텐츠 위쪽에 배치 */
@@ -842,20 +860,22 @@ body {
 
 /* 상세 이미지 떠다니는 애니메이션 */
 @keyframes floatDetailImage {
+
   0%,
   100% {
     transform: translateX(-50%) translateY(0px);
   }
+
   50% {
     transform: translateX(-50%) translateY(-15px);
   }
 }
+
 .detail-product-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.4))
-    drop-shadow(0 0 40px rgba(255, 255, 255, 0.6));
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.6));
 }
 
 /* ⭐ 반응형 - 모바일 */
@@ -874,20 +894,17 @@ body {
     max-width: 90%;
     border-radius: 200px;
     padding: 280px 40px 50px 40px;
-    -webkit-mask-image: radial-gradient(
-      circle 100px at 50% 140px,
-      transparent 0,
-      transparent 100px,
-      black 100px
-    );
-    mask-image: radial-gradient(
-      circle 100px at 50% 140px,
-      transparent 0,
-      transparent 100px,
-      black 100px
-    );
+    -webkit-mask-image: radial-gradient(circle 100px at 50% 140px,
+        transparent 0,
+        transparent 100px,
+        black 100px);
+    mask-image: radial-gradient(circle 100px at 50% 140px,
+        transparent 0,
+        transparent 100px,
+        black 100px);
   }
 }
+
 .detail-content {
   overflow: hidden;
   max-width: 500px;
@@ -903,18 +920,14 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.4);
   overflow: visible;
   /* ì›í˜• êµ¬ë© ëš«ê¸° */
-  -webkit-mask-image: radial-gradient(
-    circle 125px at 50% 165px,
-    transparent 0,
-    transparent 125px,
-    black 125px
-  );
-  mask-image: radial-gradient(
-    circle 125px at 50% 165px,
-    transparent 0,
-    transparent 125px,
-    black 125px
-  );
+  -webkit-mask-image: radial-gradient(circle 125px at 50% 165px,
+      transparent 0,
+      transparent 125px,
+      black 125px);
+  mask-image: radial-gradient(circle 125px at 50% 165px,
+      transparent 0,
+      transparent 125px,
+      black 125px);
 }
 
 .detail-image-placeholder {
@@ -976,6 +989,7 @@ body {
     margin-bottom: 4%;
     font-weight: 500;
   }
+
   .slider-arrow-left {
     left: -7%;
   }
@@ -983,6 +997,7 @@ body {
   .slider-arrow-right {
     right: -7%;
   }
+
   .splash-question {
     font-size: 1.5rem;
   }
@@ -1056,18 +1071,14 @@ body {
     max-width: 450px;
     border-radius: 220px;
     padding: 300px 45px 55px 45px;
-    -webkit-mask-image: radial-gradient(
-      circle 110px at 50% 150px,
-      transparent 0,
-      transparent 110px,
-      black 110px
-    );
-    mask-image: radial-gradient(
-      circle 110px at 50% 150px,
-      transparent 0,
-      transparent 110px,
-      black 110px
-    );
+    -webkit-mask-image: radial-gradient(circle 110px at 50% 150px,
+        transparent 0,
+        transparent 110px,
+        black 110px);
+    mask-image: radial-gradient(circle 110px at 50% 150px,
+        transparent 0,
+        transparent 110px,
+        black 110px);
   }
 
   .detail-image-placeholder {
@@ -1204,18 +1215,14 @@ body {
     max-width: 90%;
     border-radius: 200px;
     padding: 280px 40px 50px 40px;
-    -webkit-mask-image: radial-gradient(
-      circle 100px at 50% 140px,
-      transparent 0,
-      transparent 100px,
-      black 100px
-    );
-    mask-image: radial-gradient(
-      circle 100px at 50% 140px,
-      transparent 0,
-      transparent 100px,
-      black 100px
-    );
+    -webkit-mask-image: radial-gradient(circle 100px at 50% 140px,
+        transparent 0,
+        transparent 100px,
+        black 100px);
+    mask-image: radial-gradient(circle 100px at 50% 140px,
+        transparent 0,
+        transparent 100px,
+        black 100px);
   }
 
   .detail-image-placeholder {
@@ -1349,18 +1356,14 @@ body {
     max-width: 90%;
     border-radius: 200px;
     padding: 280px 40px 50px 40px;
-    -webkit-mask-image: radial-gradient(
-      circle 100px at 50% 140px,
-      transparent 0,
-      transparent 100px,
-      black 100px
-    );
-    mask-image: radial-gradient(
-      circle 100px at 50% 140px,
-      transparent 0,
-      transparent 100px,
-      black 100px
-    );
+    -webkit-mask-image: radial-gradient(circle 100px at 50% 140px,
+        transparent 0,
+        transparent 100px,
+        black 100px);
+    mask-image: radial-gradient(circle 100px at 50% 140px,
+        transparent 0,
+        transparent 100px,
+        black 100px);
   }
 
   .detail-image-placeholder {
@@ -1391,8 +1394,50 @@ body {
     font-size: 0.8rem;
     line-height: 1.5;
   }
+
   .symptom-image-placeholder {
     height: 100px;
     width: 100px;
   }
+}
+
+/* ====================================
+   푸터 스타일
+   ==================================== */
+.main-footer {
+  background-color: #ffffff;
+  color: #333333;
+  text-align: center;
+  padding: 20px 0;
+  width: 100%;
+  position: relative;
+  z-index: 100;
+}
+
+.main-footer p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* ====================================
+   상단 고정 로고 (좌측 상단)
+   ==================================== */
+.fixed-logo {
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-decoration: none;
+  z-index: 10000;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-family: "IBM Plex Sans KR", sans-serif;
+  letter-spacing: 1px;
+  transition: opacity 0.3s ease;
+}
+
+.fixed-logo:hover {
+  opacity: 0.8;
 }
